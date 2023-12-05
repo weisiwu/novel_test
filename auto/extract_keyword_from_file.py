@@ -2,10 +2,8 @@ import os
 import jieba
 from collections import Counter
 
-text_file_path = r"C:\Users\Administrator\Desktop\github\novel_test\file.txt"
-stop_words_file_path = (
-    r"C:\Users\Administrator\Desktop\github\novel_test\auto\baidu_stopwords.txt"
-)
+text_file_path = os.path.join(os.path.dirname(__file__), "..", "file.txt")
+stop_words_file_path = os.path.join(os.path.dirname(__file__), "baidu_stopwords.txt")
 
 
 # 1、生成基准图像，获取seed
