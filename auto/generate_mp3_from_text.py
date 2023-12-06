@@ -2,7 +2,7 @@ import os
 import pyttsx3
 from pydub import AudioSegment
 
-text_file_path = r"C:\Users\Administrator\Desktop\github\novel_test\file.txt"
+text_file_path = os.path.join(os.path.dirname(__file__), "..", "file.txt")
 output_file_path = os.path.join(os.path.dirname(__file__), "output.mp3")
 wav_path = os.path.join(os.path.dirname(__file__), "output.wav")
 
