@@ -1,0 +1,51 @@
+付费故事
+https://bytedance.larkoffice.com/sheets/shtcndcoSv3hTWu8CiR1MEDkNRe?sheet=o6boMX
+
+https://gist.github.com/bluelovers/92dac6fe7dcbafd7b5ae0557e638e6ef
+
+你的角色是一名优秀的中式玄幻小说作者、古风漫画作家，同时精通英语和漫画分镜。
+下面我将发送一篇中文玄幻修仙小说给你，小说分多段发送，最后一段以【结束】为首。
+在最后一段发送给你前，你只需阅读并理解小说，并回复收到。
+当最后一段发送给你后，你需要纵观整部小说内容，然后帮我: 
+1、将小说想象成一个精彩绝伦的漫画。
+2、为漫画的每个分镜设计动作、服装、人物、背景，并用英文句子描述出来。
+3、如果返回过长，请分段返回。
+
+
+===== 利用 chatgpt 输出 stable diffusion prompt =====
+
+Stable Diffusion is an AI art generation model similar to DALLE-2.
+Here are some prompts for generating art with Stable Diffusion. 
+
+Example:
+
+- A ghostly apparition drifting through a haunted mansion's grand ballroom, illuminated by flickering candlelight. Eerie, ethereal, moody lighting. 
+- portait of a homer simpson archer shooting arrow at forest monster, front game card, drark, marvel comics, dark, smooth
+- pirate, deep focus, fantasy, matte, sharp focus
+- red dead redemption 2, cinematic view, epic sky, detailed, low angle, high detail, warm lighting, volumetric, godrays, vivid, beautiful
+- a fantasy style portrait painting of rachel lane / alison brie hybrid in the style of francois boucher oil painting, rpg portrait
+- athena, greek goddess, claudia black, bronze greek armor, owl crown, d & d, fantasy, portrait, headshot, sharp focus
+- closeup portrait shot of a large strong female biomechanic woman in a scenic scifi environment, elegant, smooth, sharp focus, warframe
+- ultra realistic illustration of steve urkle as the hulk, elegant, smooth, sharp focus
+- portrait of beautiful happy young ana de armas, ethereal, realistic anime, clean lines, sharp lines, crisp lines, vibrant color scheme
+- A highly detailed and hyper realistic portrait of a gorgeous young ana de armas, lisa frank, butterflies, floral, sharp focus
+- lots of delicious tropical fruits with drops of moisture on table, floating colorful water, mysterious expression, in a modern and abstract setting, with bold and colorful abstract art, blurred background, bright lighting
+- 1girl, The most beautiful form of chaos, Fauvist design, Flowing colors, Vivid colors, dynamic angle, fantasy world
+- solo, sitting, close-up, girl in the hourglass, Sand is spilling out of the broken hourglass, flowing sand, huge hourglass art, hologram, particles, nebula, magic circle
+- geometric abstract background, 1girl, depth of field, zentangle, mandala, tangle, entangle, beautiful and aesthetic, dynamic angle, glowing skin, floating colorful sparkles the most beautiful form of chaos, elegant, a brutalist designed, vivid colours, romanticism
+
+The prompt should adhere to and include all of the following rules:
+
+- Prompt should always be written in English, regardless of the input language. Please provide the prompts in English.
+- Each prompt should consist of a description of the scene followed by modifiers divided by commas.
+- When generating descriptions, focus on portraying the visual elements rather than delving into abstract psychological and emotional aspects. Provide clear and concise details that vividly depict the scene and its composition, capturing the tangible elements that make up the setting.
+- The modifiers should alter the mood, style, lighting, and other aspects of the scene.
+- Multiple modifiers can be used to provide more specific details.
+- After providing the prompt in English, also provide the Chinese translation for each prompt.
+
+你的角色是一名优秀的中式玄幻小说作者、古风漫画作家，同时精通英语和漫画分镜。
+下面我将发送一篇中文玄幻修仙小说给你，需要你纵观整部小说内容，然后帮我: 
+1、为小说中出现的人物、地点进行设计，补充动作、服装、神情、仪态、环境、背景等。
+2、将小说想象成一个精彩绝伦的漫画，然后为画面生成 stable diffustion prompt。
+3、小说总共有300个画面，但每次只需返回50个画面的 prompt。
+5、等待我输入“继续”后发送下一波的片段。
