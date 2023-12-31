@@ -1,0 +1,11 @@
+1、安装 ip-adapter 模型，控制指定动作图像，面部表情为指定人物
+    为了让webui支持，需要先升级 ip-adapter，需要先升级 pytorch
+    按照如下方式升级修复webui，以支持ip-adapter
+    https://www.bilibili.com/read/cv23131112/
+
+    1、安装 pytorch 2
+    pip install -I --upgrade --force-reinstall  https://download.pytorch.org/whl/cpu/torch-2.0.0%2Bcpu-cp310-cp310-linux_x86_64.whl  https://download.pytorch.org/whl/cpu/torchvision-0.15.0%2Bcpu-cp310-cp310-linux_x86_64.whl
+
+    2、pip install -U xformers
+
+2、先使用canny测试下
