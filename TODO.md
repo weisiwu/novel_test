@@ -6,6 +6,13 @@
 5、chatgpt 小说背景prompt 加翻译
     1、如何让生成的prompt可以一直生效
     2、准备一份玄幻小说中文和英语对照表
+    看下这些prompt 是否可以满足需求
+    https://chat.openai.com/g/g-iWNYzo5Td-midjourney-generator
+    https://chat.openai.com/g/g-iQQ6Qfd6j-wallpaper-gpt
+    https://chat.openai.com/g/g-D21BibKO9-art-engineer
+    https://chat.openai.com/g/g-B3qi2zKGB-comfyui-assistant
+    这里还有一些写代码的ai
+    https://chat.openai.com/g/g-AVrfRPzod-react-ai
 6、英语文章抽关键词
 7、生成图和视频
 8、合成模块
