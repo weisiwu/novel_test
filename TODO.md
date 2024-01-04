@@ -13,6 +13,8 @@
     https://chat.openai.com/g/g-B3qi2zKGB-comfyui-assistant
     这里还有一些写代码的ai
     https://chat.openai.com/g/g-AVrfRPzod-react-ai
+    了解这个插件
+    https://github.com/s0md3v/sd-webui-roop
 6、英语文章抽关键词
 7、生成图和视频
 8、合成模块
