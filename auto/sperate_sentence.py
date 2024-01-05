@@ -2,7 +2,7 @@ import os
 import jieba
 import re
 
-novel_path = os.path.join(os.path.dirname(__file__), "..", "file.txt")
+novel_path = os.path.join(os.path.dirname(__file__), "file.txt")
 
 
 def segment_chinese_novel(text):

@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from translate import Translator
 
 translator = Translator(to_lang="en", from_lang="zh")
-text_file_path = os.path.join(os.path.dirname(__file__), "..", "file.txt")
+text_file_path = os.path.join(os.path.dirname(__file__), "file.txt")
 stop_words_file_path = os.path.join(os.path.dirname(__file__), "baidu_stopwords.txt")
 
 

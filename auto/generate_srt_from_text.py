@@ -14,7 +14,7 @@ from spacy.tokens import Doc
 nlp = spacy.load("en_core_web_sm")
 output_path = os.path.join(os.path.dirname(__file__), "output")
 output_srt_path = os.path.join(os.path.dirname(__file__), "output", "output.srt")
-novel_path = os.path.join(os.path.dirname(__file__), "..", "file.txt")
+novel_path = os.path.join(os.path.dirname(__file__), "file.txt")
 
 
 def jieba_tokenizer(text):

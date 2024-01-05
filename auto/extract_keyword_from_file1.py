@@ -2,7 +2,7 @@ import os
 import jieba
 from collections import Counter
 
-text_file_path = os.path.join(os.path.dirname(__file__), "..", "file.txt")
+text_file_path = os.path.join(os.path.dirname(__file__), "file.txt")
 stop_words_file_path = os.path.join(os.path.dirname(__file__), "baidu_stopwords.txt")
 
 
