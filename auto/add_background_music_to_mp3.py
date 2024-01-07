@@ -37,13 +37,12 @@ def add_background_music(
     final_audio.export(output_path, format="mp3")
 
 
-# 示例调用
-original_audio_path = (
-    r"C:\Users\Administrator\Desktop\github\novel_test\auto\output\output_combined.mp3"
-)
-background_music_path = (
-    r"C:\Users\Administrator\Desktop\github\novel_test\music\take me higher.mp3"
-)
-output_path = r"C:\Users\Administrator\Desktop\github\novel_test\auto\output\output_background_combined.mp3"
+if __name__ == "__main__":
+    # 示例调用
+    original_audio_path = r"C:\Users\Administrator\Desktop\github\novel_test\auto\output\output_combined.mp3"
+    background_music_path = (
+        r"C:\Users\Administrator\Desktop\github\novel_test\music\take me higher.mp3"
+    )
+    output_path = r"C:\Users\Administrator\Desktop\github\novel_test\auto\output\output_background_combined.mp3"
 
-add_background_music(original_audio_path, background_music_path, output_path)
+    add_background_music(original_audio_path, background_music_path, output_path)

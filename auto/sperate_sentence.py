@@ -26,12 +26,13 @@ def segment_chinese_novel(text):
     return segmented_text
 
 
-with open(
-    os.path.join(os.path.dirname(__file__), novel_path), "r", encoding="utf-8"
-) as file:
-    novel_text = file.read()
-    # 对示例文本进行分段和分句
-    result = segment_chinese_novel(novel_text)
-    # 打印结果
-    for idx, sentence in enumerate(result, 1):
-        print(f"句子 {idx}: {sentence}")
+if __name__ == "__main__":
+    with open(
+        os.path.join(os.path.dirname(__file__), novel_path), "r", encoding="utf-8"
+    ) as file:
+        novel_text = file.read()
+        # 对示例文本进行分段和分句
+        result = segment_chinese_novel(novel_text)
+        # 打印结果
+        for idx, sentence in enumerate(result, 1):
+            print(f"句子 {idx}: {sentence}")

@@ -19,6 +19,11 @@ engine.setProperty(
 
 engine.setProperty("rate", 150)
 
+
+def generate_text_mp3():
+    pass
+
+
 with open(
     os.path.join(os.path.dirname(__file__), text_file_path), "r", encoding="utf-8"
 ) as file:
@@ -30,3 +35,6 @@ engine.runAndWait()
 
 sound = AudioSegment.from_wav(wav_path)
 sound.export(output_file_path, format="mp3")
+
+
+# if __name__ == "__main__":

@@ -88,30 +88,31 @@ async def process_text(novel_text, subs, output_path):
     await asyncio.gather(*async_tasks)
 
 
-with open(
-    os.path.join(os.path.dirname(__file__), novel_path), "r", encoding="utf-8"
-) as file:
-    novel_text = file.read()
-    # 初始化 SRT 字幕对象
-    subs = pysrt.SubRipFile()
+if __name__ == "__main__":
+    with open(
+        os.path.join(os.path.dirname(__file__), novel_path), "r", encoding="utf-8"
+    ) as file:
+        novel_text = file.read()
+        # 初始化 SRT 字幕对象
+        subs = pysrt.SubRipFile()
 
-    # 运行异步程序
-    asyncio.run(process_text(novel_text, subs, output_path))
+        # 运行异步程序
+        asyncio.run(process_text(novel_text, subs, output_path))
 
-    time.sleep(5)
+        time.sleep(5)
 
-    combined_audio = AudioSegment.silent()
-    # audio_segments = []
+        combined_audio = AudioSegment.silent()
+        # audio_segments = []
 
-    for index in range(1, len(subs) + 1):
-        filename = os.path.join(output_path, f"output_{index}.mp3").replace("\\", "/")
-        segment = AudioSegment.from_file(filename)
-        combined_audio += segment
+        for index in range(1, len(subs) + 1):
+            filename = os.path.join(output_path, f"output_{index}.mp3").replace("\\", "/")
+            segment = AudioSegment.from_file(filename)
+            combined_audio += segment
 
-    # 保存合并后的音频文件
-    combined_audio.export(
-        os.path.join(output_path, "output_combined.mp3"), format="mp3"
-    )
+        # 保存合并后的音频文件
+        combined_audio.export(
+            os.path.join(output_path, "output_combined.mp3"), format="mp3"
+        )
 
-    # 保存字幕文件为 SRT 格式
-    subs.save(output_srt_path)
+        # 保存字幕文件为 SRT 格式
+        subs.save(output_srt_path)
