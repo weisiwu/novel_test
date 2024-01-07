@@ -24,7 +24,6 @@ def generate_picture(prompt):
             ),
             headers={
                 "Content-Type": "application/json",
-                "Authorization": "Bearer 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",
             },
         )
 
