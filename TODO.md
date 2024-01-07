@@ -1,3 +1,6 @@
+1、生成SRT有问题
+2、绘图还是需要调用stable-diffustion
+
 系统核心能力分块
 1、拆句子
 2、生成srt
@@ -28,6 +31,12 @@
     https://chat.openai.com/g/g-AVrfRPzod-react-ai
     了解这个插件
     https://github.com/s0md3v/sd-webui-roop
+
+
+1、翻译为英语能力补充
+1、核心能力格式修改 - 先用ji
+2、前链路联调
+1、调用chat-gpt 接口画图
 
 
 仙侠背景翻译文章

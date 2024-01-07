@@ -4,6 +4,7 @@ import spacy
 import pyttsx3
 import pysrt
 from pysrt import SubRipTime, SubRipItem
+from hanlp import hanlp
 import jieba
 import asyncio
 import time
@@ -12,9 +13,7 @@ from spacy.tokens import Doc
 
 # 加载 spaCy 模型
 nlp = spacy.load("en_core_web_sm")
-output_path = os.path.join(os.path.dirname(__file__), "output")
-output_srt_path = os.path.join(os.path.dirname(__file__), "output", "output.srt")
-novel_path = os.path.join(os.path.dirname(__file__), "file.txt")
+split_sent = hanlp.load(hanlp.pretrained.eos.UD_CTB_EOS_MUL)
 
 
 def jieba_tokenizer(text):
@@ -39,29 +38,21 @@ async def async_text_to_speech(text, filename):
 # 异步遍历 spaCy 处理后的文本
 async def process_text(novel_text, subs, output_path):
     async_tasks = []
+    paragraphs = split_sent(novel_text)
 
-    # 将文本按段落分割
-    paragraphs = re.split(r"\n+", novel_text)
-
-    for paragraph in paragraphs:
-        # 使用jieba分词
-        words = jieba.cut(paragraph)
-        # 将分词结果连接起来形成句子
-        sentence = "".join(words)
-        # 将句子按标点符号分割
-        sentences = re.split(r"[。！？；]", sentence)
-        # 过滤空字符串
-        sentences = [s.strip() for s in sentences if s.strip()]
-        sentences = sentences[0] if sentences else None
-
-        index = len(subs) + 1
+    for index, paragraph in enumerate(paragraphs):
         filename = os.path.join(output_path, f"output_{index}.mp3")
 
         # 异步语音合成
         async_tasks.append(
-            asyncio.create_task(async_text_to_speech(sentences, filename))
+            asyncio.create_task(async_text_to_speech(paragraph, filename))
         )
 
+    await asyncio.gather(*async_tasks)
+
+    # 等待所有异步任务完成
+    for index, paragraph in enumerate(paragraphs):
+        filename = os.path.join(output_path, f"output_{index}.mp3")
         audio = AudioSegment.from_file(filename)
         audio_duration = len(audio) / 1000  # 转换为秒
 
@@ -80,18 +71,36 @@ async def process_text(novel_text, subs, output_path):
         # 添加字幕
         subs.append(
             SubRipItem(
-                index=len(subs) + 1, start=start_time, end=end_time, text=sentences
+                index=len(subs) + 1, start=start_time, end=end_time, text=paragraph
             )
         )
 
-    # 等待所有异步任务完成
-    await asyncio.gather(*async_tasks)
-
 
 if __name__ == "__main__":
-    with open(
-        os.path.join(os.path.dirname(__file__), novel_path), "r", encoding="utf-8"
-    ) as file:
+    import os
+    import sys
+
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    from config_loader import loader_config
+
+    config = loader_config()
+
+    file_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["input"]["save_path"],
+        config["input"]["file_name"],
+    )
+    output_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["output"]["save_path"],
+    )
+    output_srt_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["output"]["save_path"],
+        config["output"]["srt_file_name"],
+    )
+
+    with open(file_path, "r", encoding="utf8") as file:
         novel_text = file.read()
         # 初始化 SRT 字幕对象
         subs = pysrt.SubRipFile()
@@ -102,17 +111,23 @@ if __name__ == "__main__":
         time.sleep(5)
 
         combined_audio = AudioSegment.silent()
-        # audio_segments = []
 
-        for index in range(1, len(subs) + 1):
-            filename = os.path.join(output_path, f"output_{index}.mp3").replace("\\", "/")
+        for index in range(len(subs)):
+            filename = os.path.join(
+                os.path.abspath(os.path.dirname(__file__)),
+                config["output"]["save_path"],
+                f"{config['output']['name']}_{index}.mp3",
+            )
             segment = AudioSegment.from_file(filename)
             combined_audio += segment
 
-        # 保存合并后的音频文件
-        combined_audio.export(
-            os.path.join(output_path, "output_combined.mp3"), format="mp3"
+        filnal_file = os.path.join(
+            os.path.abspath(os.path.dirname(__file__)),
+            config["output"]["save_path"],
+            f"{config['output']['combine_file']}",
         )
+        # 保存合并后的音频文件
+        combined_audio.export(filnal_file, format="mp3")
 
         # 保存字幕文件为 SRT 格式
         subs.save(output_srt_path)

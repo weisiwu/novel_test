@@ -2,10 +2,6 @@ import os
 import pyttsx3
 from pydub import AudioSegment
 
-text_file_path = os.path.join(os.path.dirname(__file__), "file.txt")
-output_file_path = os.path.join(os.path.dirname(__file__), "output.mp3")
-wav_path = os.path.join(os.path.dirname(__file__), "output.wav")
-
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 
@@ -20,21 +16,40 @@ engine.setProperty(
 engine.setProperty("rate", 150)
 
 
-def generate_text_mp3():
-    pass
-
-
-with open(
-    os.path.join(os.path.dirname(__file__), text_file_path), "r", encoding="utf-8"
-) as file:
-    text = file.read()
+def generate_text_mp3(text, wav_path, mp3_path):
     engine.say(text)
 
-engine.save_to_file(text, wav_path)
-engine.runAndWait()
+    engine.save_to_file(text, wav_path)
+    engine.runAndWait()
 
-sound = AudioSegment.from_wav(wav_path)
-sound.export(output_file_path, format="mp3")
+    sound = AudioSegment.from_wav(wav_path)
+    sound.export(mp3_path, format="mp3")
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    from config_loader import loader_config
+
+    config = loader_config()
+
+    file_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["input"]["save_path"],
+        config["input"]["file_name"],
+    )
+    wav_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["output"]["save_path"],
+        f"{config['output']['name']}.wav",
+    )
+    mp3_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["output"]["save_path"],
+        f"{config['output']['name']}.mp3",
+    )
+
+    with open(file_path, "r", encoding="utf8") as f:
+        generate_text_mp3(f.read(), wav_path, mp3_path)

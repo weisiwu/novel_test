@@ -38,11 +38,23 @@ def add_background_music(
 
 
 if __name__ == "__main__":
-    # 示例调用
-    original_audio_path = r"C:\Users\Administrator\Desktop\github\novel_test\auto\output\output_combined.mp3"
-    background_music_path = (
-        r"C:\Users\Administrator\Desktop\github\novel_test\music\take me higher.mp3"
-    )
-    output_path = r"C:\Users\Administrator\Desktop\github\novel_test\auto\output\output_background_combined.mp3"
+    import os
+    import sys
 
-    add_background_music(original_audio_path, background_music_path, output_path)
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    from config_loader import loader_config
+
+    config = loader_config()
+    original_audio_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["output"]["save_path"],
+        config["output"]["combine_file"],
+    )
+    background_music_path = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        config["background_path"],
+        config["background_music"],
+    )
+    add_background_music(
+        original_audio_path, background_music_path, original_audio_path
+    )
