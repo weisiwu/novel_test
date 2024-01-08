@@ -3,9 +3,10 @@ from moviepy.editor import (
     AudioFileClip,
     TextClip,
     CompositeVideoClip,
-    ColorClip,
 )
 from moviepy.video.tools.subtitles import SubtitlesClip
+from moviepy.config import change_settings
+from mutagen.mp3 import MP3
 
 # 创建视频剪辑
 # clip = ImageSequenceClip(image_files, fps=1)  # 每秒帧数 fps
@@ -20,6 +21,11 @@ if __name__ == "__main__":
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     from config_loader import loader_config
 
+    change_settings(
+        {
+            "IMAGEMAGICK_BINARY": r"C:/Program Files/ImageMagick-7.1.1-Q16-HDRI/magick.exe"
+        }
+    )
     config = loader_config()
 
     audio_path = os.path.join(
@@ -43,27 +49,31 @@ if __name__ == "__main__":
         config["output"]["save_path"],
         f"{config['output']['name']}.{config['output']['file_type']}",
     )
-    print("image_files", image_files)
 
     audio_clip = AudioFileClip(audio_path)
 
-    # 创建一个背景视频剪辑（黑色背景）
-    bg_clip = ColorClip(
-        size=(1920, 1080), color=(0, 0, 0), duration=audio_clip.duration
+    # 每张图片展示的时间
+    duration_per_image = MP3(audio_path).info.length / len(image_files)
+    print('duration_per_image',duration_per_image)
+
+    # 创建视频剪辑
+    clip = ImageSequenceClip(
+        image_files, durations=[duration_per_image] * len(image_files)
     )
-    # bg_clip = ImageSequenceClip(image_files, fps=1)  # 每秒帧数 fps
+
+    # 设置视频的 fps
+    clip = clip.set_fps(24)
 
     # 创建字幕剪辑
     def make_textclip(txt):
-        return TextClip(txt, font="Arial", fontsize=24, color="white")
+        return TextClip(
+            txt, font="./From_Cartoon_Blocks.ttf", fontsize=24, color="white"
+        )
 
-    with open(srt_path, "r", encoding="utf-8") as srt_file:
-        subtitles = srt_file.read()
-
-    subtitles_clip = SubtitlesClip(subtitles, make_textclip)
+    subtitles_clip = SubtitlesClip(srt_path, make_textclip)
 
     # 将字幕和背景组合
-    video = CompositeVideoClip([bg_clip, subtitles_clip.set_pos(("center", "bottom"))])
+    video = CompositeVideoClip([clip, subtitles_clip.set_pos(("center", "bottom"))])
 
     # 设置视频的音频
     video = video.set_audio(audio_clip)
