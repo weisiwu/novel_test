@@ -7,6 +7,7 @@ from moviepy.editor import (
 from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.config import change_settings
 from mutagen.mp3 import MP3
+from config_loader import loader_config
 
 # 创建视频剪辑
 # clip = ImageSequenceClip(image_files, fps=1)  # 每秒帧数 fps
@@ -15,12 +16,6 @@ from mutagen.mp3 import MP3
 # clip.write_videofile("output_video.mp4")
 
 if __name__ == "__main__":
-    import os
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-    from config_loader import loader_config
-
     change_settings(
         {
             "IMAGEMAGICK_BINARY": r"C:/Program Files/ImageMagick-7.1.1-Q16-HDRI/magick.exe"
@@ -54,7 +49,7 @@ if __name__ == "__main__":
 
     # 每张图片展示的时间
     duration_per_image = MP3(audio_path).info.length / len(image_files)
-    print('duration_per_image',duration_per_image)
+    print("duration_per_image", duration_per_image)
 
     # 创建视频剪辑
     clip = ImageSequenceClip(

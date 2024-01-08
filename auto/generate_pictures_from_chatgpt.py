@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 from hanlp import hanlp
 from requests.exceptions import RequestException
+from config_loader import loader_config
 
 split_sent = hanlp.load(hanlp.pretrained.eos.UD_CTB_EOS_MUL)
 
@@ -78,12 +79,6 @@ def group_sentence(sentences, n_groups):
 
 
 if __name__ == "__main__":
-    import os
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-    from config_loader import loader_config
-
     config = loader_config()
 
     file_path = os.path.join(

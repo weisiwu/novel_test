@@ -1,6 +1,7 @@
 import os
 import pyttsx3
 from pydub import AudioSegment
+from config_loader import loader_config
 
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
@@ -27,12 +28,6 @@ def generate_text_mp3(text, wav_path, mp3_path):
 
 
 if __name__ == "__main__":
-    import os
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-    from config_loader import loader_config
-
     config = loader_config()
 
     file_path = os.path.join(

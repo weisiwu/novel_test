@@ -10,6 +10,7 @@ import asyncio
 import time
 from pydub import AudioSegment
 from spacy.tokens import Doc
+from config_loader import loader_config
 
 # 加载 spaCy 模型
 nlp = spacy.load("en_core_web_sm")
@@ -77,12 +78,6 @@ async def process_text(novel_text, subs, output_path):
 
 
 if __name__ == "__main__":
-    import os
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-    from config_loader import loader_config
-
     config = loader_config()
 
     file_path = os.path.join(

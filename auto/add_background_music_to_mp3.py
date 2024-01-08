@@ -1,4 +1,5 @@
 from pydub import AudioSegment
+from config_loader import loader_config
 
 
 def add_background_music(
@@ -38,12 +39,6 @@ def add_background_music(
 
 
 if __name__ == "__main__":
-    import os
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-    from config_loader import loader_config
-
     config = loader_config()
     original_audio_path = os.path.join(
         os.path.abspath(os.path.dirname(__file__)),
