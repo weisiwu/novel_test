@@ -47,3 +47,5 @@ node_modules
 db.json
 
 package-lock.json
+
+__pycache__

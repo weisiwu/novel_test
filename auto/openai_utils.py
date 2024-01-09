@@ -1,6 +1,8 @@
 import os
+from openai import OpenAI
 
 
+# TODO: 这个函数有无必要
 # 同历史的session_id进行对比，相同则说明仍处于同一对话，如果为初次使用，则判断返回值是否为“OK”
 def check_is_ok(steam):
     for chunk in steam:
@@ -33,3 +35,19 @@ def read_response(stream):
         f.write(session_id)
 
     return full_res.strip()
+
+
+def conversation(prompt, conversation_id=""):
+    client = OpenAI()
+    stream = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+        stream=True,
+    )
+
+    return read_response(stream)
