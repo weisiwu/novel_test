@@ -22,13 +22,16 @@ def generate_sd_prompt():
     print("response", response)
     # 开启完毕上下文后，开始逐一发送句子，生成prompt
     sentences = split_sentence()
-
-    # prompt_res = list(filter(None, response.strip().split("\n")))
-    # positive_prompt = prompt_res[:2]
-    # negtive_prompt = prompt_res[2:]
+    response = conversation(sentences)
+    print("response1212", response)
+    prompt_res = list(filter(None, response.strip().split("\n")))
+    positive_prompt = prompt_res[:2]
+    negtive_prompt = prompt_res[2:]
     return {positive_prompt, negtive_prompt}
 
 
 # 测试
 if __name__ == "__main__":
-    generate_sd_prompt()
+    positive_prompt, negtive_prompt = generate_sd_prompt()
+    print("positive_prompt", positive_prompt)
+    print("negtive_prompt", negtive_prompt)
