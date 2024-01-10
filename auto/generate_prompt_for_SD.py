@@ -15,19 +15,27 @@ def generate_sd_prompt():
         prompt_preset = f.read()
 
     # 设置上下文对话环境
-    response = conversation(prompt_preset)
+    response = conversation(prompt_preset, role="system")
 
     # TODO: 后续将失败的response过滤，并终止
+    prompt_list = []
 
-    print("response", response)
-    # 开启完毕上下文后，开始逐一发送句子，生成prompt
-    sentences = split_sentence()
-    response = conversation(sentences)
-    print("response1212", response)
-    prompt_res = list(filter(None, response.strip().split("\n")))
-    positive_prompt = prompt_res[:2]
-    negtive_prompt = prompt_res[2:]
-    return {positive_prompt, negtive_prompt}
+    if response == "OK":
+        # 开启完毕上下文后，开始逐一发送句子，生成prompt
+        sentences = split_sentence()
+        for sentence in sentences:
+            response = conversation(sentence, role="user")
+            prompt_res = list(filter(None, response.strip().split("\n")))
+            positive_prompt = prompt_res[:2]
+            negtive_prompt = prompt_res[2:]
+            prompt_list.append(
+                {"positive_prompt": positive_prompt, "negtive_prompt": negtive_prompt}
+            )
+
+    if not len(prompt_list):
+        return None
+
+    return prompt_list
 
 
 # 测试
