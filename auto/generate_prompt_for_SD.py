@@ -14,24 +14,26 @@ def generate_sd_prompt():
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt_preset = f.read()
 
+    conversation_messages = []
+
     # 设置上下文对话环境
-    response = conversation(prompt_preset)
+    conversation_messages.append({"role": "system", "content": prompt_preset})
 
-    # TODO: 后续将失败的response过滤，并终止
-
-    print("response", response)
-    # 开启完毕上下文后，开始逐一发送句子，生成prompt
+    # 组装生成prompt
     sentences = split_sentence()
-    response = conversation(sentences)
-    print("response1212", response)
+    for sentence in sentences:
+        conversation_messages.append({"role": "user", "content": sentence})
+
+    response = conversation(conversation_messages)
     prompt_res = list(filter(None, response.strip().split("\n")))
-    positive_prompt = prompt_res[:2]
-    negtive_prompt = prompt_res[2:]
-    return {positive_prompt, negtive_prompt}
+    positive_prompt = prompt_res[:-1]
+    negtive_prompt = [prompt_res[-1]]
+
+    return {"positive_prompt": positive_prompt, "negtive_prompt": negtive_prompt}
 
 
-# 测试
 if __name__ == "__main__":
-    positive_prompt, negtive_prompt = generate_sd_prompt()
-    print("positive_prompt", positive_prompt)
-    print("negtive_prompt", negtive_prompt)
+    prompts = generate_sd_prompt()
+
+    print("positive_prompt", prompts.get("positive_prompt"))
+    print("negtive_prompt", prompts.get("negtive_prompt"))

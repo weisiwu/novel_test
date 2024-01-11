@@ -1,5 +1,5 @@
 import os
-from openai import OpenAI
+import openai
 
 
 # TODO: 这个函数有无必要
@@ -24,6 +24,7 @@ def check_is_ok(steam):
 def read_response(stream):
     full_res = ""
     session_id = ""
+
     for chunk in stream:
         session_id = chunk.id
         if chunk.choices[0].delta.content is not None:
@@ -37,16 +38,28 @@ def read_response(stream):
     return full_res.strip()
 
 
-def conversation(prompt, conversation_id=""):
-    client = OpenAI()
-    stream = client.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
+# 回话补全返回结构如下
+# {
+#   "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+#   "object": "chat.completion",
+#   "created": 1677649420,
+#   "model": "gpt-3.5-turbo",
+#   "usage": { "prompt_tokens": 56, "completion_tokens": 31, "total_tokens": 87 },
+#   "choices": [
+#     {
+#       "message": {
+#         "role": "assistant",
+#         "content": "The 2020 World Series was played in Arlington, Texas at the Globe Life Field, which was the new home stadium for the Texas Rangers."
+#       },
+#       "finish_reason": "stop",
+#       "index": 0
+#     }
+#   ]
+# }
+def conversation(messages, model="gpt-4"):
+    stream = openai.chat.completions.create(
+        model=model,
+        messages=messages,
         stream=True,
     )
 

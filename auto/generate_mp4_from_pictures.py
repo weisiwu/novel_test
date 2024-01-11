@@ -1,3 +1,4 @@
+import os
 from moviepy.editor import (
     ImageSequenceClip,
     AudioFileClip,
