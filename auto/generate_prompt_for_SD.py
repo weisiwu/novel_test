@@ -33,7 +33,7 @@ def generate_sd_prompt():
 
 
 if __name__ == "__main__":
-    positive_prompt, negtive_prompt = generate_sd_prompt()
+    prompts = generate_sd_prompt()
 
-    print("positive_prompt", positive_prompt)
-    print("negtive_prompt", negtive_prompt)
+    print("positive_prompt", prompts.get("positive_prompt"))
+    print("negtive_prompt", prompts.get("negtive_prompt"))
