@@ -24,9 +24,9 @@ def check_is_ok(steam):
 def read_response(stream):
     full_res = ""
     session_id = ""
+
     for chunk in stream:
         session_id = chunk.id
-        print("chunk.choices[0].delta:", chunk.choices[0].delta.content)
         if chunk.choices[0].delta.content is not None:
             full_res = "".join([full_res, chunk.choices[0].delta.content])
 
@@ -56,15 +56,10 @@ def read_response(stream):
 #     }
 #   ]
 # }
-def conversation(prompt, role="system"):
+def conversation(messages, model="gpt-4"):
     stream = openai.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {
-                "role": role,
-                "content": prompt,
-            }
-        ],
+        model=model,
+        messages=messages,
         stream=True,
     )
 
