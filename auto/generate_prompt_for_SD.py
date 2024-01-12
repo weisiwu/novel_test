@@ -1,6 +1,7 @@
 import os
 from split_sentence_from_file import split_sentence
 from openai_utils import conversation
+from generate_picture_by_sd_webui import call_txt2img_api
 
 prompt_path = os.path.abspath(
     os.path.join(
@@ -9,7 +10,6 @@ prompt_path = os.path.abspath(
 )
 
 
-# TODO: 1、先每次都init，后面对init做缓存
 def generate_sd_prompt():
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt_preset = f.read()
@@ -26,6 +26,9 @@ def generate_sd_prompt():
 
     response = conversation(conversation_messages)
     prompt_res = list(filter(None, response.strip().split("\n")))
+    # TODO: 这里处理后，返回的prompt数量不对
+    print("tset", len(filter(None, response.strip().split("\n"))))
+    print("xx", len(prompt_res))
     positive_prompt = prompt_res[:-1]
     negtive_prompt = [prompt_res[-1]]
 
@@ -33,7 +36,26 @@ def generate_sd_prompt():
 
 
 if __name__ == "__main__":
-    prompts = generate_sd_prompt()
+    raw_prompts = generate_sd_prompt()
 
-    print("positive_prompt", prompts.get("positive_prompt"))
-    print("negtive_prompt", prompts.get("negtive_prompt"))
+    positive_prompts = raw_prompts.get("positive_prompt", "")
+    negative_prompt = str(raw_prompts.get("negtive_prompt", ""))
+
+    print(len(positive_prompts))
+    for prompt in positive_prompts:
+        print("prompt")
+        payload = {
+            "prompt": prompt,
+            "negative_prompt": negative_prompt,
+            "seed": 1,
+            "width": 512,
+            "height": 512,
+            "cfg_scale": 7,
+            "sampler_name": "DPM++ 2M Karras",
+            "n_iter": 1,
+            "batch_size": 1,
+        }
+
+        print("开始生成")
+        # call_txt2img_api(**payload)
+        print("生成完毕")
