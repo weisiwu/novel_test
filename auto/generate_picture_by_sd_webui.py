@@ -10,9 +10,10 @@ import os
 #   https://help.aliyun.com/zh/pai/user-guide/call-a-service-over-a-public-endpoint?spm=5176.2020520104.0.0.19973f1bHIdDef
 # 如果需要登录，需要执行如下步骤步
 # 在luanch命令中传入 --nowebui
-webui_server_url = (
-    "https://dsw-gateway-cn-shanghai.data.aliyun.com/dsw-298247/proxy/7861/"
-)
+# 这里换成本地sd-webui调试
+# 注意，本地nowebui启动后，打开 http://127.0.0.1:7861/ 是不会有任何展示的
+# 需要进入 http://127.0.0.1:7861/docs 才能看到接口，确认有 txt2img 后跑一遍
+webui_server_url = "http://127.0.0.1:7861"
 
 # out_dir = "api_out"
 out_dir = ""
@@ -84,22 +85,22 @@ if __name__ == "__main__":
     call_txt2img_api(**payload)
 
     # TODO: 试一下是否可以获取远程的url
-    init_images = [
-        encode_file_to_base64(r"B:\path\to\img_1.png"),
-        # "https://image.can/also/be/a/http/url.png",
-    ]
+    # init_images = [
+    #     encode_file_to_base64(r"B:\path\to\img_1.png"),
+    #     # "https://image.can/also/be/a/http/url.png",
+    # ]
 
-    batch_size = 2
-    payload = {
-        "prompt": "1girl, blue hair",
-        "seed": 1,
-        "steps": 20,
-        "width": 512,
-        "height": 512,
-        "denoising_strength": 0.5,
-        "n_iter": 1,
-        "init_images": init_images,
-        "batch_size": batch_size if len(init_images) == 1 else len(init_images),
-    }
+    # batch_size = 2
+    # payload = {
+    #     "prompt": "1girl, blue hair",
+    #     "seed": 1,
+    #     "steps": 20,
+    #     "width": 512,
+    #     "height": 512,
+    #     "denoising_strength": 0.5,
+    #     "n_iter": 1,
+    #     "init_images": init_images,
+    #     "batch_size": batch_size if len(init_images) == 1 else len(init_images),
+    # }
     # TODO: 暂不处理
     # call_img2img_api(**payload)
