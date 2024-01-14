@@ -10,52 +10,71 @@ prompt_path = os.path.abspath(
 )
 
 
+# TODO: 返回生成的prommpt不稳定
 def generate_sd_prompt():
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt_preset = f.read()
 
     conversation_messages = []
-
-    # 设置上下文对话环境
-    conversation_messages.append({"role": "system", "content": prompt_preset})
-
     # 组装生成prompt
     sentences = split_sentence()
+
     for sentence in sentences:
-        conversation_messages.append({"role": "user", "content": sentence})
+        conversation_messages.append(
+            [
+                {"role": "system", "content": prompt_preset},
+                {"role": "user", "content": sentence},
+            ]
+        )
 
-    response = conversation(conversation_messages)
-    prompt_res = list(filter(None, response.strip().split("\n")))
-    # TODO: 这里处理后，返回的prompt数量不对
-    print("tset", len(filter(None, response.strip().split("\n"))))
-    print("xx", len(prompt_res))
-    positive_prompt = prompt_res[:-1]
-    negtive_prompt = [prompt_res[-1]]
+    combined_prompts = []
 
-    return {"positive_prompt": positive_prompt, "negtive_prompt": negtive_prompt}
+    for msg in conversation_messages:
+        response = conversation(msg)
+        response_arr = list(filter(None, response.strip().split("\n")))
+        # print("======")
+        # print(response_arr)
+        # print("======")
+
+        positive_prompt = response_arr[0]
+        negative_prompt = response_arr[1]
+        combined_prompts.append(
+            {"positive_prompt": positive_prompt, "negative_prompt": negative_prompt}
+        )
+
+    print("======")
+    print(positive_prompt)
+    print(negative_prompt)
+    # print("对话长度", len(conversation_messages), len(combined_prompts))
+    print("======")
+
+    return combined_prompts
 
 
 if __name__ == "__main__":
-    raw_prompts = generate_sd_prompt()
+    combined_prompts = generate_sd_prompt()
 
-    positive_prompts = raw_prompts.get("positive_prompt", "")
-    negative_prompt = str(raw_prompts.get("negtive_prompt", ""))
+    print("combined_prompts===", combined_prompts)
+    # for index, item in enumerate(combined_prompts):
+    #     positive_prompt = item.get("positive_prompt", "")
+    #     negative_prompt = item.get("negative_prompt", "")
+    #     payload = {
+    #         "prompt": positive_prompt,
+    #         "negative_prompt": negative_prompt,
+    #         "seed": 1,
+    #         "width": 512,
+    #         "height": 512,
+    #         "cfg_scale": 7,
+    #         "sampler_name": "DPM++ 2M Karras",
+    #         "n_iter": 1,
+    #         "batch_size": 1,
+    #     }
 
-    print(len(positive_prompts))
-    for prompt in positive_prompts:
-        print("prompt")
-        payload = {
-            "prompt": prompt,
-            "negative_prompt": negative_prompt,
-            "seed": 1,
-            "width": 512,
-            "height": 512,
-            "cfg_scale": 7,
-            "sampler_name": "DPM++ 2M Karras",
-            "n_iter": 1,
-            "batch_size": 1,
-        }
+    #     print("positive_prompt===", positive_prompt)
+    #     print("negative_prompt===", negative_prompt)
+    #     print("====================================")
 
-        print("开始生成")
-        # call_txt2img_api(**payload)
-        print("生成完毕")
+    # print(
+    #     f"第{index} 开始生成 {positive_prompt}",
+    # )
+    # call_txt2img_api(**payload)
