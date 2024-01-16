@@ -28,3 +28,6 @@
 
 # 4、核心流程
 ![流程](./assets/novel_test.png)
+
+
+docker build -t novel_test .
