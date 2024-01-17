@@ -31,3 +31,15 @@
 
 1、构建镜像
 docker build --no-cache -t novel_test .
+
+向docker hub推送镜像
+docker login
+docker tag local-image:tag yourhubusername/repo-name:new-tag
+docker push yourhubusername/repo-name:new-tag
+
+在后台运行容器
+docker run -d --name my-running-app my-python-app
+
+接入容器
+docker exec -it my-running-app bash
+

@@ -21,4 +21,6 @@ COPY . /novel_test
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 在容器启动时运行 test.py
-CMD ["python", "./test.py"]
+# CMD ["python", "./test.py"]
+# 保持在后台持续运行
+CMD ["sleep", "infinity"]
