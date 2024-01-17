@@ -29,5 +29,5 @@
 # 4、核心流程
 ![流程](./assets/novel_test.png)
 
-
+1、构建镜像
 docker build --no-cache -t novel_test .
