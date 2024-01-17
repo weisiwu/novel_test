@@ -2,6 +2,8 @@
 FROM alpine:3.19
 FROM python:3.10-slim-bookworm
 
+LABEL maintainer="weisiwu <siwu.wsw@gmail.com>"
+
 RUN mkdir -p /etc/apk
 
 RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/main/' > /etc/apk/repositories \
@@ -17,8 +19,9 @@ WORKDIR /novel_test
 COPY . /novel_test
 
 # 安装 requirements.txt 中指定的任何所需包
-# 你可以取消这一行的注释并创建 requirements.txt 文件
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 在容器启动时运行 test.py
-CMD ["python", "./test.py"]
+# CMD ["python", "./test.py"]
+# 保持在后台持续运行
+CMD ["sleep", "infinity"]
