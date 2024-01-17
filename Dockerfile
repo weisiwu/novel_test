@@ -21,7 +21,5 @@ COPY . /novel_test
 # 安装 requirements.txt 中指定的任何所需包
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 在容器启动时运行 test.py
-# CMD ["python", "./test.py"]
 # 保持在后台持续运行
 CMD ["sleep", "infinity"]

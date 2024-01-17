@@ -74,4 +74,18 @@ docker push weisiwu/novel_test:0.0.1
 > 暂时因为收费价格和安全策略弃用。目前DALL-E-2/3生成单图价格范围在1毛-8毛之间，且调用API有时间限制，每分钟5条。
 
 # 4、核心流程
-![流程](./assets/novel_test.png)
+![流程](./assets/images/novel_test.png)
+
+# 5、文件路径
+``` shell
+├─assets 所有物料: 如readme引用的文件、背景音乐、字体文件等   
+│  ├─background_music 背景音乐  
+│  ├─font 字体文件  
+│  └─images 图片  
+├─documents prompts相关文档  
+├─input 项目输入目录  
+├─output 项目输出目录  
+│  ├─img2img 图生图目录  
+│  └─txt2img 文生图目录 
+└─utils 所有功能代码  
+```
