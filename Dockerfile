@@ -1,13 +1,11 @@
 # 使用官方 Python 运行时作为父镜像
-FROM alpine:3.19.0
+FROM alpine:3.19
 FROM python:3.10-slim-bookworm
 
-RUN echo 'weisiwu'
+RUN mkdir -p /etc/apk
 
-RUN echo $(ls -al /etc)
-
-RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.12/main/' > /etc/apk/repositories \
-    && echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.12/community/' >> /etc/apk/repositories
+RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/main/' > /etc/apk/repositories \
+    && echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/community/' >> /etc/apk/repositories
 
 RUN apt-get update && \
     apt-get install -y git

@@ -30,4 +30,4 @@
 ![流程](./assets/novel_test.png)
 
 
-docker build -t novel_test .
+docker build --no-cache -t novel_test .
