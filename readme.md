@@ -31,3 +31,4 @@
 
 1、构建镜像
 docker build --no-cache -t novel_test .
+2、运行镜像
