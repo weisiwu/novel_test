@@ -6,8 +6,13 @@ from config_loader import loader_config
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 
+# for voice in voices:
+#     print("ID:", voice.id, "Name:", voice.name, "Lang:", voice.languages)
 for voice in voices:
     print("ID:", voice.id, "Name:", voice.name, "Lang:", voice.languages)
+    if "chinese" in voice.name.lower():  # 查找包含“chinese”的语音
+        engine.setProperty("voice", voice.id)
+        break
 
 engine.setProperty(
     "voice",
@@ -27,6 +32,7 @@ def generate_text_mp3(text, wav_path, mp3_path):
     sound.export(mp3_path, format="mp3")
 
 
+print(__name__)
 if __name__ == "__main__":
     config = loader_config()
 

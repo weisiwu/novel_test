@@ -1,27 +1,26 @@
-# 使用官方 Python 运行时作为父镜像
 FROM alpine:3.19
-FROM python:3.10-slim-bookworm
+FROM silverlogic/python3.8:latest
 
 LABEL maintainer="weisiwu <siwu.wsw@gmail.com>"
+
+# 尝试运行 ttskit
+# https://github.com/kuangdd/ttskit?tab=readme-ov-file
 
 RUN mkdir -p /etc/apk
 
 RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/main/' > /etc/apk/repositories \
     && echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/community/' >> /etc/apk/repositories
 
-RUN apt-get update && \
-    apt-get install -y git && \
-    apt-get install -y vim && \
-    apt-get install -y ffmpeg
-
 # 设置工作目录为 /app
-WORKDIR /novel_test
+WORKDIR /ttskit_app
 
 # 将当前目录内容复制到位于 /app 的容器中
-COPY . /novel_test
+COPY ./ttskit_app.py /ttskit_app
 
 # 安装 requirements.txt 中指定的任何所需包
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install "torch>=1.6.0,<=1.7.1"
+RUN pip install -U ttskit
 
 # 保持在后台持续运行
+# CMD ["python", "ttskit_app.py"]
 CMD ["sleep", "infinity"]

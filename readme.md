@@ -17,7 +17,9 @@ docker push weisiwu/novel_test:tagname
 # 常规启动镜像
 docker run -d --name novel_test novel_test
 # 指定 utils 对应本地的挂载目录启动
-docker run -d -v C:\Users\Administrator\Desktop\github\novel_test\utils:/novel_test/utils --name novel_test novel_test
+docker run -d -v C:\Users\Administrator\Desktop\github\novel_test\utils:/novel_test/utils -v C:\Users\Administrator\Desktop\github\novel_test\output:/novel_test/output --name novel_test novel_test
+# 测试ttskit
+docker run -d --name ttskit_test ttskit_test
 ```
 
 **3、接入到运行中的镜像**
@@ -32,6 +34,8 @@ docker exec -it novel_test bash
 ```shell
 # 从Dockerfile构建镜像
 docker build --no-cache -t novel_test .
+# 构建测试使用ttskit库镜像 
+docker build --no-cache -f Dockerfile_ttskit -t ttskit_test .
 # 保存运行中的容器为新镜像
 docker commit 12345abcde novel_test:latest
 ```
