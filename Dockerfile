@@ -10,7 +10,8 @@ RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/main/' > /etc/apk/rep
     && echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/community/' >> /etc/apk/repositories
 
 RUN apt-get update && \
-    apt-get install -y git
+    apt-get install -y git && \
+    apt-get install -y vim
 
 # 设置工作目录为 /app
 WORKDIR /novel_test

@@ -14,7 +14,10 @@ docker push weisiwu/novel_test:tagname
 **2、运行镜像**
 
 ```shell
+# 常规启动镜像
 docker run -d --name novel_test novel_test
+# 指定 utils 对应本地的挂载目录启动
+docker run -d -v C:\Users\Administrator\Desktop\github\novel_test\utils:/novel_test/utils --name novel_test novel_test
 ```
 
 **3、接入到运行中的镜像**
