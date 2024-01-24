@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  wordpress:
+    image: wordpress:php8.3
+    depends_on:
+      - db
+    volumes:
+      - ./wordpress:/var/www/html
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    # 其他配置...
+
+  wpcli:
+    image: wordpress:cli-php8.3
+    depends_on:
+      - wordpress
+    volumes:
+      - ./wordpress:/var/www/html
+    user: xfs # 使用与 WordPress 相同的用户
+    entrypoint: wp
+    command: shell
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    # 其他配置...
+
+volumes:
+  db_data: {}
