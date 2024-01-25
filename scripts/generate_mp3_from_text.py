@@ -6,8 +6,6 @@ from config_loader import loader_config
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 
-# for voice in voices:
-#     print("ID:", voice.id, "Name:", voice.name, "Lang:", voice.languages)
 for voice in voices:
     print("ID:", voice.id, "Name:", voice.name, "Lang:", voice.languages)
     if "chinese" in voice.name.lower():  # 查找包含“chinese”的语音
@@ -31,8 +29,20 @@ def generate_text_mp3(text, wav_path, mp3_path):
     sound = AudioSegment.from_wav(wav_path)
     sound.export(mp3_path, format="mp3")
 
+# 上面的都是之前的实现。现在将市面上知名度较高的tts库全部调用一次，再决定使用什么？
 
-print(__name__)
+def generate_by_gTTs():
+    pass
+
+def generate_by_pyttsx3():
+    pass
+
+def generate_by_ibm_watson_tts():
+    pass
+
+def generate_by_ms_azure_tts():
+    pass
+
 if __name__ == "__main__":
     config = loader_config()
 
