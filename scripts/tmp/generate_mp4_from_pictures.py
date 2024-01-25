@@ -8,7 +8,7 @@ from moviepy.editor import (
 from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.config import change_settings
 from mutagen.mp3 import MP3
-from config_loader import loader_config
+from scripts.config_loader import loader_config
 
 # 创建视频剪辑
 # clip = ImageSequenceClip(image_files, fps=1)  # 每秒帧数 fps

@@ -4,7 +4,7 @@ import requests
 from datetime import datetime
 from hanlp import hanlp
 from requests.exceptions import RequestException
-from config_loader import loader_config
+from scripts.config_loader import loader_config
 
 split_sent = hanlp.load(hanlp.pretrained.eos.UD_CTB_EOS_MUL)
 

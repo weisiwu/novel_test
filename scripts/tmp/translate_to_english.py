@@ -1,6 +1,6 @@
 import os
 from openai import OpenAI
-from config_loader import loader_config
+from scripts.config_loader import loader_config
 from openai_utils import check_is_ok, read_response
 
 

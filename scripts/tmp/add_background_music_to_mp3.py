@@ -1,5 +1,5 @@
 from pydub import AudioSegment
-from config_loader import loader_config
+from scripts.config_loader import loader_config
 
 
 def add_background_music(

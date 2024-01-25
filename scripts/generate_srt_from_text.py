@@ -10,7 +10,7 @@ import asyncio
 import time
 from pydub import AudioSegment
 from spacy.tokens import Doc
-from config_loader import loader_config
+from scripts.config_loader import loader_config
 
 # 加载 spaCy 模型
 nlp = spacy.load("en_core_web_sm")

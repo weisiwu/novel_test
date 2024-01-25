@@ -1,6 +1,6 @@
 import os
 from hanlp import hanlp
-from config_loader import loader_config
+from scripts.config_loader import loader_config
 
 config = loader_config()
 
