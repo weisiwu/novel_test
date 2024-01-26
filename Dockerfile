@@ -12,7 +12,8 @@ RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/main/' > /etc/apk/rep
 RUN apt-get update && \
     apt-get install -y git && \
     apt-get install -y vim && \
-    apt-get install -y ffmpeg
+    apt-get install -y ffmpeg && \
+    apt-get install -y espeak
 
 # 设置工作目录为 /app
 WORKDIR /novel_test

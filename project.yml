@@ -1,16 +1,5 @@
-# 小说输入
-input:
-  file_name: 'file.txt'
-  save_path: './input'
-# 输出结果
 output:
-  name: 'output'
-  file_type: 'mp4'
-  # 目录相对于根目录
-  save_path: './output'
-  save_img_path: './output/img'
-  img_target_num: 10
-  srt_file_name: 'output.srt'
-  combine_file: 'output_combined.mp3'
-background_path: '../background_music'
-background_music: 'take me higher.mp3'
+  background_music: 'take me higher.mp3'
+  speed: 120
+  volume: 10
+  filename: 'output'
