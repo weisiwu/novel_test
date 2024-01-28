@@ -25,7 +25,7 @@ TODO 输出位置没指定
 # 进入容器
 docker exec -it novel_test bash
 # 从Dockerfile构建镜像
-docker build --no-cache -t novel_test .
+docker build --no-cache -t novel_test:latest .
 # 保存运行中的容器为新镜像
 docker commit 12345abcde novel_test:latest
 docker login

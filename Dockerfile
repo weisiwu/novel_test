@@ -10,20 +10,14 @@ RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/main/' > /etc/apk/rep
     && echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/community/' >> /etc/apk/repositories
 
 RUN apt-get update && \
-    apt-get install -y git && \
-    apt-get install -y vim && \
-    apt-get install -y wget && \
-    apt-get install -y ffmpeg && \
-    apt-get install -y espeak && \
-    apt-get install -y libespeak1 && \
-    apt-get install -y unzip
-
+    apt-get install -y git vim wget ffmpeg espeak libespeak1 unzip
 
 # 下载espeak中文语言资料包
-RUN mkdir -p /usr/share/espeak-data/
-RUN git clone 'https://github.com/caixxiong/espeak-data' /usr/share/espeak-data/
-RUN cd /usr/share/espeak-data/espeak-data/ && unzip espeak-data.zip && mv espeak-data/* ..
-RUN cp -r /usr/share/espeak-data/* /usr/lib/x86_64-linux-gnu/espeak-data
+RUN mkdir -p /novel_test/tmp/
+RUN git clone 'https://github.com/caixxiong/espeak-data' /novel_test/tmp/
+RUN cd /novel_test/tmp/ && unzip espeak-data.zip && mv espeak-data/* ..
+RUN cp -r /novel_test/tmp/* /usr/lib/x86_64-linux-gnu/espeak-data
+RUN rm -rf /novel_test/tmp
 
 # 不知道是否可以这样执行？
 # RUN ./init.py
