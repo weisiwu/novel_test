@@ -18,11 +18,17 @@ def loader_config():
             config = yaml.load(f.read(), Loader=yaml.Loader)
             filename = config["output"]["filename"]
             output_path = os.path.abspath(
-                os.path.join(os.path.dirname(__file__), "../", "output", filename)
+                os.path.join(os.path.dirname(__file__), "../", "output")
             )
-            output_srt_path = os.path.abspath(os.path.join(output_path, "srt"))
-            output_mp3_path = os.path.abspath(os.path.join(output_path, "mp3"))
-            output_mkv_path = os.path.abspath(os.path.join(output_path, "mkv"))
+            output_srt_path = os.path.abspath(
+                os.path.join(output_path, f"{filename}.srt")
+            )
+            output_mp3_path = os.path.abspath(
+                os.path.join(output_path, f"{filename}.mp3")
+            )
+            output_mkv_path = os.path.abspath(
+                os.path.join(output_path, f"{filename}.mkv")
+            )
             config["output"]["srt_path"] = output_srt_path
             config["output"]["mp3_path"] = output_mp3_path
             config["output"]["mkv_path"] = output_mkv_path
@@ -36,7 +42,7 @@ def loader_config():
     return config
 
 
-def get_common_config():
+def get_mp3_config():
     config = loader_config()
     output = config.get("output", {})
     input = config.get("input", {})
@@ -45,5 +51,16 @@ def get_common_config():
         input.get("input_text"),
         output.get("speed"),
         output.get("volume"),
-        output.get("background_music"),
+        output.get("mp3_path"),
+    ]
+
+
+def get_srt_config():
+    config = loader_config()
+    output = config.get("output", {})
+    input = config.get("input", {})
+
+    return [
+        input.get("input_text"),
+        output.get("srt_path"),
     ]

@@ -1,5 +1,5 @@
 output:
   background_music: 'take me higher.mp3'
   speed: 120
-  volume: 10
+  volume: 0.7
   filename: 'output'
