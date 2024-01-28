@@ -1,0 +1,1 @@
+docker run -d -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/novel_test/utils --name novel_test novel_test

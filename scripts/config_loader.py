@@ -18,11 +18,11 @@ def loader_config():
             config = yaml.load(f.read(), Loader=yaml.Loader)
             filename = config["output"]["filename"]
             output_path = os.path.abspath(
-                os.path.join(os.path.dirname(__file__), "../", filename)
+                os.path.join(os.path.dirname(__file__), "../", "output", filename)
             )
-            output_srt_path = os.path.abspath(output_path, "srt")
-            output_mp3_path = os.path.abspath(output_path, "mp3")
-            output_mkv_path = os.path.abspath(output_path, "mkv")
+            output_srt_path = os.path.abspath(os.path.join(output_path, "srt"))
+            output_mp3_path = os.path.abspath(os.path.join(output_path, "mp3"))
+            output_mkv_path = os.path.abspath(os.path.join(output_path, "mkv"))
             config["output"]["srt_path"] = output_srt_path
             config["output"]["mp3_path"] = output_mp3_path
             config["output"]["mkv_path"] = output_mkv_path

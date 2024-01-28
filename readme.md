@@ -15,7 +15,7 @@ docker push weisiwu/novel_test:latest
 
 ```shell
 # 挂载input.txt
-docker run -d -v INPUT_PATH:/novel_test/utils -v --name novel_test novel_test
+docker run -d -v INPUT_PATH:/novel_test/scripts --name novel_test novel_test
 ```
 
 TODO 输出位置没指定
