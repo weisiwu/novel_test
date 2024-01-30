@@ -1,3 +1,12 @@
 docker run -d -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/novel_test/scripts -v /C/Users/Administrator/Desktop/github/novel_test/output:/novel_test/output --name novel_test novel_test
 
 docker exec -it novel_test bash
+
+TTS build
+docker build -t tts_test:latest -f Dockerfile_TTS .
+
+docker run -d --name tts_test tts_test
+docker exec -it tts_test bash
+
+TTS test
+docker run --rm -it -p 5002:5002 --entrypoint /bin/bash tts_test
