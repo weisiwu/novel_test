@@ -1,15 +1,15 @@
 import os
 import yaml
+from pathlib import *
 
-config_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../", "project.yml")
-)
-input_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../", "input.txt")
-)
+base_path = Path(__file__).parent.parent
+config_path = base_path / "project.yml"
+input_path = base_path / "input.txt"
+output_path = base_path / "output"
+print("base_path", input_path)
 
 
-# 读取yml内容，并导出
+# # 读取yml内容，并导出
 def loader_config():
     config = {}
 
@@ -17,21 +17,9 @@ def loader_config():
         with open(config_path, "r", encoding="utf8") as f:
             config = yaml.load(f.read(), Loader=yaml.Loader)
             filename = config["output"]["filename"]
-            output_path = os.path.abspath(
-                os.path.join(os.path.dirname(__file__), "../", "output")
-            )
-            output_srt_path = os.path.abspath(
-                os.path.join(output_path, f"{filename}.srt")
-            )
-            output_mp3_path = os.path.abspath(
-                os.path.join(output_path, f"{filename}.mp3")
-            )
-            output_mkv_path = os.path.abspath(
-                os.path.join(output_path, f"{filename}.mkv")
-            )
-            config["output"]["srt_path"] = output_srt_path
-            config["output"]["mp3_path"] = output_mp3_path
-            config["output"]["mkv_path"] = output_mkv_path
+            config["output"]["srt_path"] = output_path / f"{filename}.srt"
+            config["output"]["mp3_path"] = output_path / f"{filename}.mp3"
+            config["output"]["mkv_path"] = output_path / f"{filename}.mkv"
 
             with open(input_path, "r", encoding="utf8") as input_f:
                 config["input"] = {

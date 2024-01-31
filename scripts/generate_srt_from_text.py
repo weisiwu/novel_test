@@ -1,3 +1,4 @@
+# 输入文字，生成srt
 import os
 import re
 import spacy
