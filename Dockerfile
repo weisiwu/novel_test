@@ -1,22 +1,15 @@
-# 使用官方 Python 运行时作为父镜像
-FROM alpine:3.19
+FROM ubuntu:18.04
 FROM python:3.10-slim-bookworm
 
 LABEL maintainer="weisiwu <siwu.wsw@gmail.com>"
 
 RUN mkdir -p /etc/apk
 
-RUN echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/main/' > /etc/apk/repositories \
-    && echo 'http://mirrors.tuna.tsinghua.edu.cn/alpine/v3.19/community/' >> /etc/apk/repositories
+RUN cp /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/debian.sources.bak
+RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /etc/apt/sources.list.d/debian.sources
 
 RUN apt-get update && \
     apt-get install -y git vim wget ffmpeg espeak libespeak1 unzip
-
-# 下载espeak中文语言资料包
-RUN cd /usr/lib/x86_64-linux-gnu/espeak-data
-RUN git clone 'https://github.com/caixxiong/espeak-data'
-RUN cd espeak-data/ && unzip espeak-data.zip && cp -r * /usr/lib/x86_64-linux-gnu/espeak-data
-RUN espeak --compile=zh
 
 # 设置工作目录为 /app
 WORKDIR /novel_test
