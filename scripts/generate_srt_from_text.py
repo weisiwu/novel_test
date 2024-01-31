@@ -1,6 +1,5 @@
 # 输入文字，生成srt
 import os
-import re
 import spacy
 import pyttsx3
 import pysrt

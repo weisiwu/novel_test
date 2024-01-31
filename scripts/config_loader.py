@@ -6,7 +6,6 @@ base_path = Path(__file__).parent.parent
 config_path = base_path / "project.yml"
 input_path = base_path / "input.txt"
 output_path = base_path / "output"
-print("base_path", input_path)
 
 
 # # 读取yml内容，并导出
