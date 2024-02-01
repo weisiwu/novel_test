@@ -22,7 +22,4 @@ def generate_by_coqui_TTS(text, output, speaker_path):
 
 if __name__ == "__main__":
     input_text, speed, volumn, save_path, speaker_path = get_mp3_config()
-    print(input_text)
-    print(save_path)
-    print(speaker_path)
     generate_by_coqui_TTS(input_text, save_path, speaker_path)

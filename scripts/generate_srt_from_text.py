@@ -79,50 +79,29 @@ async def process_text(novel_text, subs, output_path):
 
 if __name__ == "__main__":
     config = loader_config()
+    input_path = config.get("input", {}).get("input_path", "")
+    novel_text = config.get("input", {}).get("input_text", "")
+    output_path = config.get("output", {}).get("srt_path", "")
 
-    file_path = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)),
-        config["input"]["save_path"],
-        config["input"]["file_name"],
-    )
-    output_path = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)),
-        config["output"]["save_path"],
-    )
-    output_srt_path = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)),
-        config["output"]["save_path"],
-        config["output"]["srt_file_name"],
-    )
+    # 初始化 SRT 字幕对象
+    subs = pysrt.SubRipFile()
 
-    with open(file_path, "r", encoding="utf8") as file:
-        novel_text = file.read()
-        # 初始化 SRT 字幕对象
-        subs = pysrt.SubRipFile()
+    # 运行异步程序
+    asyncio.run(process_text(novel_text, subs, output_path))
 
-        # 运行异步程序
-        asyncio.run(process_text(novel_text, subs, output_path))
+    # TODO 这里的5秒是做什么的？
+    time.sleep(5)
 
-        time.sleep(5)
+    combined_audio = AudioSegment.silent()
 
-        combined_audio = AudioSegment.silent()
-
-        for index in range(len(subs)):
-            filename = os.path.join(
-                os.path.abspath(os.path.dirname(__file__)),
-                config["output"]["save_path"],
-                f"{config['output']['name']}_{index}.mp3",
-            )
-            segment = AudioSegment.from_file(filename)
-            combined_audio += segment
-
-        filnal_file = os.path.join(
+    for index in range(len(subs)):
+        filename = os.path.join(
             os.path.abspath(os.path.dirname(__file__)),
             config["output"]["save_path"],
-            f"{config['output']['combine_file']}",
+            f"{config['output']['name']}_{index}.mp3",
         )
-        # 保存合并后的音频文件
-        combined_audio.export(filnal_file, format="mp3")
+        segment = AudioSegment.from_file(filename)
+        combined_audio += segment
 
-        # 保存字幕文件为 SRT 格式
-        subs.save(output_srt_path)
+    # 保存字幕文件为 SRT 格式
+    subs.save(output_path)

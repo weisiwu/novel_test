@@ -1,3 +1,5 @@
 docker run -it -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/novel_test/scripts -v /C/Users/Administrator/Desktop/github/novel_test/project.yml:/novel_test/project.yml -v /C/Users/Administrator/Desktop/github/novel_test/output:/novel_test/output -p 5002:5002 --entrypoint /bin/bash --name novel_test novel_test
 
+docker exec -it novel_test /bin/bash
+
 docker build -t novel_test:latest .
