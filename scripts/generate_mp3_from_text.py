@@ -9,16 +9,12 @@ def generate_by_coqui_TTS(text, output, speaker_path):
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # List available 🐸TTS models
+    print("listModelslistModelslistModels")
     print(TTS().list_models())
 
-    # Init TTS
     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
     print("speaker_path: ", speaker_path)
-    # Run TTS
-    # ❗ Since this model is multi-lingual voice cloning model, we must set the target speaker_wav and language
-    # Text to speech list of amplitude values as output
-    # Text to speech to a file
     tts.tts_to_file(
         text=text, speaker_wav=speaker_path, language="zh", file_path=output
     )

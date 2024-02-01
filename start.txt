@@ -1,12 +1,3 @@
-docker run -it -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/novel_test/scripts -v /C/Users/Administrator/Desktop/github/novel_test/output:/novel_test/output  -p 5002:5002 --entrypoint /bin/bash --name novel_test novel_test
+docker run -it -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/novel_test/scripts -v /C/Users/Administrator/Desktop/github/novel_test/project.yml:/novel_test/project.yml -v /C/Users/Administrator/Desktop/github/novel_test/output:/novel_test/output -p 5002:5002 --entrypoint /bin/bash --name novel_test novel_test
 
-docker exec -it novel_test bash
-
-TTS build
-docker build -t tts_test:latest -f Dockerfile_TTS .
-
-docker run -d --name tts_test tts_test
-docker exec -it tts_test bash
-
-TTS test
-docker run --rm -it -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/tts_test/scripts --name tts_test -p 5002:5002 --entrypoint /bin/bash tts_test
+docker build -t novel_test:latest .
