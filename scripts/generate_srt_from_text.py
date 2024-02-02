@@ -1,59 +1,16 @@
 # 输入文字，生成srt
 import os
-import spacy
-import pyttsx3
 import pysrt
 from pysrt import SubRipTime, SubRipItem
-from hanlp import hanlp
-import jieba
-import asyncio
-import time
 from pydub import AudioSegment
-from spacy.tokens import Doc
 from scripts.config_loader import loader_config
 
-# 加载 spaCy 模型
-nlp = spacy.load("en_core_web_sm")
-split_sent = hanlp.load(hanlp.pretrained.eos.UD_CTB_EOS_MUL)
 
-
-def jieba_tokenizer(text):
-    words = list(jieba.cut(text))
-    return Doc(nlp.vocab, words=words)
-
-
-nlp.tokenizer = jieba_tokenizer
-
-
-# 异步语音合成函数
-async def async_text_to_speech(text, filename):
-    engine = pyttsx3.init()
-    engine.setProperty(
-        "voice",
-        "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_ZH-CN_HUIHUI_11.0",
-    )
-    engine.save_to_file(text, filename)
-    engine.runAndWait()
-
-
-# 异步遍历 spaCy 处理后的文本
-async def process_text(novel_text, subs, output_path):
+def process_text(paragraphs, subs):
     async_tasks = []
-    paragraphs = split_sent(novel_text)
 
+    # 获取时间
     for index, paragraph in enumerate(paragraphs):
-        filename = os.path.join(output_path, f"output_{index}.mp3")
-
-        # 异步语音合成
-        async_tasks.append(
-            asyncio.create_task(async_text_to_speech(paragraph, filename))
-        )
-
-    await asyncio.gather(*async_tasks)
-
-    # 等待所有异步任务完成
-    for index, paragraph in enumerate(paragraphs):
-        filename = os.path.join(output_path, f"output_{index}.mp3")
         audio = AudioSegment.from_file(filename)
         audio_duration = len(audio) / 1000  # 转换为秒
 
@@ -85,14 +42,10 @@ if __name__ == "__main__":
 
     # 初始化 SRT 字幕对象
     subs = pysrt.SubRipFile()
+    combined_audio = AudioSegment.silent()
 
     # 运行异步程序
-    asyncio.run(process_text(novel_text, subs, output_path))
-
-    # TODO 这里的5秒是做什么的？
-    time.sleep(5)
-
-    combined_audio = AudioSegment.silent()
+    process_text(novel_text, subs, output_path)
 
     for index in range(len(subs)):
         filename = os.path.join(
