@@ -1,39 +1,54 @@
 import os
-import pyttsx3
-from gtts import gTTS, lang
+import torch
+import shutil
+from pathlib import *
+from pydub import AudioSegment
+from TTS.api import TTS
+from novel_split import novel_split
 from config_loader import get_mp3_config
 
 
-def generate_by_gTTs(text, speed, volumn, save_path):
-    tts = gTTS(text, lang="zh-CN")
-    tts.save(save_path)
-    print(lang.tts_langs())
+# https://github.com/coqui-ai/TTS
+def generate_by_coqui_TTS(output, speaker_path):
+    # Get device
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    pass
+    # List available 🐸TTS models
+    print(TTS().list_models())
+    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+    tmp_wav_path = Path(__file__).parent / "tmp_wav"
+    sentences = novel_split()
+    segment_times = []
 
+    not os.path.isdir(tmp_wav_path) and os.makedirs(tmp_wav_path)
 
-def generate_by_pyttsx3(text, speed, volumn, save_path):
-    engine = pyttsx3.init()
-    engine.setProperty("voice", "zh")  # 设置引擎为中文
-    engine.setProperty("rate", speed)  # 设置语速
-    engine.setProperty("volume", volumn)  # 设置音量
+    for index, sentence in enumerate(sentences):
+        tts.tts_to_file(
+            text=sentence,
+            speaker_wav=speaker_path,
+            language="zh",
+            file_path=tmp_wav_path / f"tmp_{index}.wav",
+        )
 
-    engine.save_to_file(text, save_path)
-    engine.runAndWait()
-    # 长文本转换，需要分段执行
-    # while "output.mp3" not in os.listdir(save_path):
-    #     socketio.sleep(1)
+    # 生成完毕后，整体拼接
+    combined_audio = AudioSegment.empty()
+    audio_segments = [
+        AudioSegment.from_wav(tmp_wav_path / file_path)
+        for file_path in os.listdir(tmp_wav_path)
+    ]
+    for segment in audio_segments:
+        combined_audio = combined_audio + segment
+        segment_times.append(len(segment))
 
+    combined_audio.export(output, format="mp3")
 
-def generate_by_ibm_watson_tts():
-    pass
+    # 拼接完毕后，删除临时wav文件
+    shutil.rmtree(tmp_wav_path)
 
-
-def generate_by_ms_azure_tts():
-    pass
+    print("segment_times==>", segment_times)
+    return segment_times
 
 
 if __name__ == "__main__":
-    input_text, speed, volumn, save_path = get_mp3_config()
-    # generate_by_pyttsx3(input_text, speed, volumn, save_path)
-    generate_by_gTTs(input_text, speed, volumn, save_path)
+    input_text, speed, volumn, save_path, speaker_path = get_mp3_config()
+    generate_by_coqui_TTS(save_path, speaker_path)

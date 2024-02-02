@@ -3,3 +3,4 @@ output:
   speed: 120
   volume: 0.7
   filename: 'output'
+  speaker: 'moqingcang'

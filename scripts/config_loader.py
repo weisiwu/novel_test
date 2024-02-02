@@ -16,9 +16,13 @@ def loader_config():
         with open(config_path, "r", encoding="utf8") as f:
             config = yaml.load(f.read(), Loader=yaml.Loader)
             filename = config["output"]["filename"]
+            speaker = config["output"]["speaker"]
             config["output"]["srt_path"] = output_path / f"{filename}.srt"
             config["output"]["mp3_path"] = output_path / f"{filename}.mp3"
             config["output"]["mkv_path"] = output_path / f"{filename}.mkv"
+            config["output"]["speaker_path"] = (
+                output_path.parent / "wav" / f"{speaker}.wav"
+            )
 
             with open(input_path, "r", encoding="utf8") as input_f:
                 config["input"] = {
@@ -39,6 +43,7 @@ def get_mp3_config():
         output.get("speed"),
         output.get("volume"),
         output.get("mp3_path"),
+        output.get("speaker_path"),
     ]
 
 
