@@ -27,18 +27,15 @@ if __name__ == "__main__":
             speaker_path=speaker_path,
         )
         segment_len = len(AudioSegment.from_wav(tmp_file_path))
-        print("segment_len: ", segment_len)
-        generate_srt_from_text(
-            text=sentence, time=segment_len, srt_path=srt_path
-        )  # 追加字幕
+        srt_current_time += segment_len
+        print("segment_len: ", segment_len, "srt_current_time: ", srt_current_time)
+        # 追加字幕
+        generate_srt_from_text(text=sentence, time=srt_current_time, srt_path=srt_path)
 
-    # 合并音频片段
-    combined_audio = AudioSegment.empty()
-    audio_segments = [
-        AudioSegment.from_wav(file_path) for file_path in os.listdir(tmp_file_path)
-    ]
-    for segment in audio_segments:
-        combined_audio = combined_audio + segment
+    # 合并音频文件
+    for file_path in os.listdir(tmp_file_path):
+        combined_audio = combined_audio + AudioSegment.from_wav(file_path)
+    combined_audio.export(mp3_path, format="mp3")
 
     # 拼接完毕后，删除临时wav文件
     shutil.rmtree(tmp_wav_path)

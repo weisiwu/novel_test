@@ -1,6 +1,5 @@
 import os
-from pysrt import srttime, SubRipFile, SubRipTime, SubRipItem
-from novel_split import novel_split
+from pysrt import SubRipFile, SubRipTime, SubRipItem
 from config_loader import loader_config
 
 
@@ -12,7 +11,7 @@ def generate_srt_from_text(text, segment_len, srt_path):
 
     segment_len = segment_len / 1000  # 转换为秒
     # 设置字幕开始和结束时间
-    start_time = srttime.SubRipTime(milliseconds=0)
+    start_time = SubRipTime(milliseconds=0)
     end_time = SubRipTime(seconds=segment_len)
     # 如果已有字幕，取上一个字幕的结束时间作为当前字幕的开始时间
     if subs:
