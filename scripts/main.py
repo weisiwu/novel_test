@@ -26,7 +26,10 @@ if __name__ == "__main__":
             output=tmp_file_path,
             speaker_path=speaker_path,
         )
+        print("tmp_file_path=>", tmp_file_path)
+        print(os.path.isfile(tmp_file_path))
         segment_len = len(AudioSegment.from_wav(tmp_file_path))
+        print("这里hi什么")
         srt_current_time += segment_len
         print("segment_len: ", segment_len, "srt_current_time: ", srt_current_time)
         # 追加字幕
