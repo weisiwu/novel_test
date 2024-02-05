@@ -10,3 +10,6 @@ docker build -t novel_test:latest .
 
 保存运行中的容器为镜像
 docker commit novel_test novel_test:0.0.1
+
+向dockerhub推送镜像，需要用户名+镜像名+tag
+docker push wei123098/novel_test:0.1.0
