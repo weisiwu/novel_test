@@ -54,3 +54,5 @@ __pycache__/*
 wordpress/*
 
 .conda
+
+models/*
