@@ -1,7 +1,5 @@
 import os
 from pysrt import SubRipFile, SubRipTime, SubRipItem
-from config_loader import loader_config
-
 
 def generate_srt_from_text(text, segment_len, srt_path):
     subs = SubRipFile()
@@ -9,7 +7,6 @@ def generate_srt_from_text(text, segment_len, srt_path):
     print("generate_srt_from_text==segment_len", segment_len)
     print("generate_srt_from_text==srt_path", srt_path)
 
-    segment_len = segment_len / 1000  # 转换为秒
     # 设置字幕开始和结束时间
     start_time = SubRipTime(milliseconds=0)
     end_time = SubRipTime(seconds=segment_len)
@@ -30,12 +27,12 @@ def generate_srt_from_text(text, segment_len, srt_path):
     # 保存字幕文件为 SRT 格式
     subs.save(srt_path)
 
+# 这里的demo肯定不对
+# if __name__ == "__main__":
+#     config = loader_config()
+#     srt_path = config.get("output", {}).get("srt_path", "")
 
-if __name__ == "__main__":
-    config = loader_config()
-    srt_path = config.get("output", {}).get("srt_path", "")
-
-    print("srt_path==> ", srt_path)
-    # demo数据
-    segment_times = []
-    generate_srt_from_text(srt_path)
+#     print("srt_path==> ", srt_path)
+#     # demo数据
+#     segment_times = []
+#     generate_srt_from_text(srt_path)

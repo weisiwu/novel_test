@@ -18,7 +18,7 @@ def loader_config():
             filename = config["output"]["filename"]
             speaker = config["output"]["speaker"]
             config["output"]["srt_path"] = output_path / f"{filename}.srt"
-            config["output"]["mp3_path"] = output_path / f"{filename}.mp3"
+            config["output"]["mp3_path"] = output_path / f"{filename}.wav"
             config["output"]["mkv_path"] = output_path / f"{filename}.mkv"
             config["output"]["speaker_path"] = (
                 output_path.parent / "wav" / f"{speaker}.wav"

@@ -44,6 +44,8 @@ output:
 ```
 
 # notice
+  docker 限制容器对CPU的占比
+
   将这个文件下载到指定位置，防止每次都下载
   https://hf-mirror.com/coqui/XTTS-v2
   model.pth

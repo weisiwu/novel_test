@@ -16,11 +16,8 @@ tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 # https://github.com/coqui-ai/TTS
 def generate_by_coqui_TTS(text, output, speaker_path):
     tts.tts_to_file(
-        text=text, speaker_wav=speaker_path, language="zh", file_path=output
+        text=text, speaker_wav=speaker_path, language="zh-cn", file_path=output
     )
-
-    AudioSegment.from_wav(output).export(output, format="mp3")
-
 
 if __name__ == "__main__":
     input_text, speed, volumn, save_path, speaker_path = get_mp3_config()

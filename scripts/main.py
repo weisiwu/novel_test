@@ -19,6 +19,7 @@ if __name__ == "__main__":
 
     # 断句后依次对每句生成语音和字幕
     sentences = novel_split()
+    print("sentences=>", sentences)
     for index, sentence in enumerate(sentences):
         tmp_file_path = tmp_wav_path / f"tmp_{index}.wav"
         generate_by_coqui_TTS(
@@ -26,14 +27,14 @@ if __name__ == "__main__":
             output=tmp_file_path,
             speaker_path=speaker_path,
         )
-        print("tmp_file_path=>", tmp_file_path)
-        print(os.path.isfile(tmp_file_path))
-        segment_len = len(AudioSegment.from_wav(tmp_file_path))
-        print("这里hi什么")
+        print("tmp_file_path=>", tmp_file_path, os.path.isfile(tmp_file_path))
+        print("视频长度", len(AudioSegment.from_wav(tmp_file_path)))
+        segment_len = len(AudioSegment.from_wav(tmp_file_path)) / 1000  # 转换为秒
         srt_current_time += segment_len
-        print("segment_len: ", segment_len, "srt_current_time: ", srt_current_time)
         # 追加字幕
-        generate_srt_from_text(text=sentence, time=srt_current_time, srt_path=srt_path)
+        generate_srt_from_text(
+            text=sentence, segment_len=srt_current_time, srt_path=srt_path
+        )
 
     # 合并音频文件
     for file_path in os.listdir(tmp_file_path):
@@ -42,6 +43,3 @@ if __name__ == "__main__":
 
     # 拼接完毕后，删除临时wav文件
     shutil.rmtree(tmp_wav_path)
-
-    segment_times = generate_by_coqui_TTS(mp3_path, speaker_path)
-    generate_srt_from_text(srt_path)
