@@ -11,6 +11,13 @@ RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /
 RUN apt-get update && \
     apt-get install -y git vim wget ffmpeg espeak libespeak1 unzip
 
+RUN mkdir -p /root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2
+RUN cd  /root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2
+RUN wget https://hf-mirror.com/coqui/XTTS-v2/resolve/main/config.json?download=true 
+RUN wget https://hf-mirror.com/coqui/XTTS-v2/resolve/main/hash.md5?download=true
+RUN wget https://hf-mirror.com/coqui/XTTS-v2/resolve/main/vocab.json?download=true
+RUN wget https://hf-mirror.com/coqui/XTTS-v2/resolve/main/model.pth?download=true
+
 # 设置工作目录为 /app
 WORKDIR /novel_test
 
