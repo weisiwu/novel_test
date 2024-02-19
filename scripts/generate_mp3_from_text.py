@@ -1,8 +1,6 @@
-import os
 import torch
 from pathlib import *
 from TTS.api import TTS
-from pydub import AudioSegment
 from config_loader import get_mp3_config
 
 # Get device
