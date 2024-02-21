@@ -23,8 +23,8 @@ output_path = Path(__file__).parent / "training"
 # You can also use a simple Dict to define the dataset and pass it to your custom formatter.
 dataset_config = BaseDatasetConfig(
     formatter="ljspeech",
-    meta_file_train="/novel_test/datasets/moyunxi_new/train_data/metadata.csv",
-    path="/novel_test/datasets/moyunxi_new/train_data",
+    meta_file_train="/novel_test/datasets/moyunxi_new/metadata_wav.csv",
+    path="/novel_test/datasets/moyunxi_new/wavs1",
 )
 
 # INITIALIZE THE TRAINING CONFIGURATION
@@ -39,13 +39,14 @@ config = GlowTTSConfig(
     epochs=1000,
     text_cleaner="phoneme_cleaners",
     use_phonemes=True,
-    phoneme_language="en-us",
+    phoneme_language="zh-cn",
     phoneme_cache_path=os.path.join(output_path, "phoneme_cache"),
     print_step=25,
     print_eval=False,
     mixed_precision=True,
     output_path=output_path,
     datasets=[dataset_config],
+    eval_split_size=0.02,
 )
 
 # INITIALIZE THE AUDIO PROCESSOR
