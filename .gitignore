@@ -56,3 +56,5 @@ wordpress/*
 .conda
 
 models/*
+datasets/*
+scripts/run/*

@@ -1,5 +1,5 @@
 windows
-docker run -it -v /D/TTS_datasets:/novel_test/datasets -v /C/Users/Administrator/Desktop/github/novel_test/input.txt:/novel_test/input.txt -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/novel_test/scripts -v /C/Users/Administrator/Desktop/github/novel_test/project.yml:/novel_test/project.yml -v /C/Users/Administrator/Desktop/github/novel_test/output:/novel_test/output -p 5002:5002 --entrypoint /bin/bash --name novel_test novel_test
+docker run -it -v /C/Users/Administrator/Desktop/github/novel_test/models:/novel_test/models -v /D/TTS_datasets:/novel_test/datasets -v /C/Users/Administrator/Desktop/github/novel_test/input.txt:/novel_test/input.txt -v /C/Users/Administrator/Desktop/github/novel_test/scripts:/novel_test/scripts -v /C/Users/Administrator/Desktop/github/novel_test/project.yml:/novel_test/project.yml -v /C/Users/Administrator/Desktop/github/novel_test/output:/novel_test/output -p 5002:5002 --entrypoint /bin/bash --name novel_test novel_test
 
 remote ubuntu(2vCPU)
 docker run -it --cpus="1.5" -m 2048m -v /root/novel_test/scripts:/novel_test/scripts -v /root/novel_test/project.yml:/novel_test/project.yml -v /root/novel_test/output:/novel_test/output -p 5002:5002 --entrypoint /bin/bash --name novel_test novel_test
