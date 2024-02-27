@@ -1,3 +1,17 @@
+type 有三种 tts_models/vocoder_models/voice_conversion_models
+本项目微调的是 tts_models 以下模型支持中文
+tts_models/multilingual/multi-dataset/xtts_v2
+tts_models/multilingual/multi-dataset/your_tts
+tts_models/multilingual/multi-dataset/bark
+tts_models/zh-CN/baker/tacotron2-DDC-GST
+
+1、各种dataset的格式 coqui/tts 支持的dataset可以查看recipes/目录，目录下每一个文件夹都是一种dataset
+2、下载准备微调的模型到云盘上。
+tts --model_name tts_models/multilingual/multi-dataset/xtts_v2 --text "好"
+tts --model_name tts_models/multilingual/multi-dataset/your_tts --text "好"
+tts --model_name tts_models/multilingual/multi-dataset/bark --text "好"
+tts --model_name tts_models/zh-CN/baker/tacotron2-DDC-GST --text "好"
+
 Name format: type/language/dataset/model
 1: tts_models/multilingual/multi-dataset/xtts_v2
 2: tts_models/multilingual/multi-dataset/xtts_v1.1
@@ -91,4 +105,3 @@ Name format: type/language/dataset/model
 
 Name format: type/language/dataset/model
 1: voice_conversion_models/multilingual/vctk/freevc24
-/mnt/workspace/novel_test/scripts> 
