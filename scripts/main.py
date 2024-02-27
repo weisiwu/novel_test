@@ -17,10 +17,6 @@ if __name__ == "__main__":
 
     # 断句后依次对每句生成语音和字幕
     sentences = novel_split()
-    print(
-        "遍历路径的结果是什么", os.listdir(tmp_wav_path), len(os.listdir(tmp_wav_path))
-    )
-    print("sentences=>", sentences)
     for index, sentence in enumerate(sentences):
         tmp_file_path = tmp_wav_path / f"{index}.wav"
         generate_by_coqui_TTS(
@@ -28,8 +24,6 @@ if __name__ == "__main__":
             output=tmp_file_path,
             speaker_path=speaker_path,
         )
-        print("tmp_file_path=>", tmp_file_path, os.path.isfile(tmp_file_path))
-        print("视频长度", len(AudioSegment.from_wav(tmp_file_path)))
         segment_len = len(AudioSegment.from_wav(tmp_file_path)) / 1000  # 转换为秒
         # 追加字幕
         add_text_to_srt(text=sentence, segment_len=segment_len)
@@ -40,7 +34,6 @@ if __name__ == "__main__":
         combined_audio = combined_audio + AudioSegment.from_wav(
             tmp_wav_path / f"{file_name}.wav"
         )
-        print("单个文件名: ", tmp_wav_path / f"{file_name}.wav")
     combined_audio.export(mp3_path, format="wav")
 
     # 保存字幕文件

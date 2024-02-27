@@ -96,18 +96,14 @@ if __name__ == "__main__":
                 else:
                     break
 
-        # print(*(item for item in sentens_words), sep="\n")
-
         prompts = []
         prev_prompt = ""  # 前置prompt,这里是为了生成网文图
         prompts_file_path = os.path.join(os.path.dirname(__file__), "..", "prompts.txt")
 
         for index, sentence_words in enumerate(sentens_words):
-            print(f"Sentence {index+1} =============")
             prompt = ""
             for word in sentence_words:
                 prompt += f"{translator.translate(word)},"
-            print(prompt)
             prompts.append(f"{prompt}\n")
 
         # 将生成的prompt写入文件

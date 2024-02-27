@@ -5,8 +5,6 @@ subs = SubRipFile()
 
 
 def add_text_to_srt(text, segment_len):
-    print("generate_srt_from_text==text", text)
-    print("generate_srt_from_text==segment_len", segment_len)
 
     # 设置字幕开始和结束时间
     start_time = SubRipTime(milliseconds=0)
@@ -27,6 +25,5 @@ def add_text_to_srt(text, segment_len):
 
 
 def save_srt(srt_path):
-    print("generate_srt_from_text==srt_path", srt_path)
     # 保存字幕文件为 SRT 格式
     subs.save(srt_path)
